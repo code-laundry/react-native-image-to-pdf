@@ -10,6 +10,7 @@
     "react-native"
   ],
   "author": "Jonas Laux, Philipp Mueller",
+  "homepage": "https://github.com/code-laundry/react-native-image-to-pdf#readme",
   "license": "MIT",
   "peerDependencies": {
     "react-native": "*"
