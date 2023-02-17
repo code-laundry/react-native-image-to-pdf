@@ -17,6 +17,25 @@ const ImageToPdf = NativeModules.ImageToPdf
       }
     );
 
-export function createPDFbyImages(options: any): Promise<any> {
+
+interface CreatePdfOptions {
+    imagePaths: string[],
+    name: string,
+    maxSize?: {
+        width: number,
+        height: number,
+    }
+    quality?: number,
+}
+
+interface GeneratedPDF {
+    filePath: string
+}
+
+function createPDFbyImages(options: CreatePdfOptions): Promise<GeneratedPDF> {
   return ImageToPdf.createPDFbyImages(options);
+}
+
+export default {
+    createPDFbyImages
 }
