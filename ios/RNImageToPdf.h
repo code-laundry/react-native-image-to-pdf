@@ -2,11 +2,11 @@
 #ifdef RCT_NEW_ARCH_ENABLED
 #import "RNImageToPdfSpec.h"
 
-@interface ImageToPdf : NSObject <NativeImageToPdfSpec>
+@interface RNImageToPdf : NSObject <NativeImageToPdfSpec>
 #else
 #import <React/RCTBridgeModule.h>
 
-@interface ImageToPdf : NSObject <RCTBridgeModule>
+@interface RNImageToPdf : NSObject <RCTBridgeModule>
 #endif
 
 @end

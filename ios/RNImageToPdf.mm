@@ -1,15 +1,15 @@
-#import "ImageToPdf.h"
+#import "RNImageToPdf.h"
 #import <React/RCTLog.h>
 
 
-@interface ImageToPdf ()
+@interface RNImageToPdf ()
 
 @property (strong, nonatomic) NSMutableArray *imageViewArray;
 @property (strong, nonatomic) NSMutableDictionary *resultDict;
 
 @end
 
-@implementation ImageToPdf {
+@implementation RNImageToPdf {
     RCTPromiseResolveBlock _resolveBlock;
     RCTPromiseRejectBlock _rejectBlock;
 }
