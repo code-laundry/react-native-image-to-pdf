@@ -1,11 +1,12 @@
-//  Created by Jonas
-#import <React/RCTView.h>
+
+#ifdef RCT_NEW_ARCH_ENABLED
+#import "RNImageToPdfSpec.h"
+
+@interface RNImageToPdf : NSObject <NativeImageToPdfSpec>
+#else
 #import <React/RCTBridgeModule.h>
-#import <React/RCTUtils.h>
-#import <React/RCTConvert.h>
-#import <React/RCTEventDispatcher.h>
 
 @interface RNImageToPdf : NSObject <RCTBridgeModule>
+#endif
 
 @end
-  

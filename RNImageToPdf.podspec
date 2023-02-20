@@ -1,20 +1,35 @@
 require "json"
 
-Pod::Spec.new do |s|
-  # NPM package specification
-  package = JSON.parse(File.read(File.join(File.dirname(__FILE__), "package.json")))
+package = JSON.parse(File.read(File.join(__dir__, "package.json")))
+folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32'
 
+Pod::Spec.new do |s|
   s.name         = "RNImageToPdf"
   s.version      = package["version"]
   s.summary      = package["description"]
-  s.homepage     = "https://github.com/Anyline/react-native-image-to-pdf"
-  s.license      = "MIT"
-  s.author       = { package["author"]["name"] => package["author"]["email"] }
-  s.platform     = :ios, "8.0"
-  s.source       = { :git => "https://github.com/frenberg/react-native-image-to-pdf.git", :branch => "master" }
-  s.source_files  = "ios/*.{h,m}"
-  s.requires_arc = true
+  s.homepage     = package["homepage"]
+  s.license      = package["license"]
+  s.authors      = package["author"]
 
-  s.dependency "React"
+  s.platforms    = { :ios => "10.0" }
+  s.source       = { :git => "https://github.com/code-laundry/react-native-image-to-pdf.git", :tag => "#{s.version}" }
 
+  s.source_files = "ios/**/*.{h,m,mm}"
+
+  s.dependency "React-Core"
+
+  # Don't install the dependencies when we run `pod install` in the old architecture.
+  if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
+    s.compiler_flags = folly_compiler_flags + " -DRCT_NEW_ARCH_ENABLED=1"
+    s.pod_target_xcconfig    = {
+        "HEADER_SEARCH_PATHS" => "\"$(PODS_ROOT)/boost\"",
+        "OTHER_CPLUSPLUSFLAGS" => "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1",
+        "CLANG_CXX_LANGUAGE_STANDARD" => "c++17"
+    }
+    s.dependency "React-Codegen"
+    s.dependency "RCT-Folly"
+    s.dependency "RCTRequired"
+    s.dependency "RCTTypeSafety"
+    s.dependency "ReactCommon/turbomodule/core"
+  end
 end
