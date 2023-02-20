@@ -80,7 +80,6 @@ RCT_EXPORT_METHOD(createPDFbyImages:(NSDictionary *)options
 }
 
 - (UIImage *)imageWith:(UIImage *)image scaledToSize:(CGSize)newSize {
-    RCTLog(@"Image at resolution (w,h) %f,%f", newSize.width, newSize.height);
     CGSize currentSize = [image size];
     if (currentSize.width == newSize.width && currentSize.height == newSize.height) return image;
 
@@ -119,7 +118,6 @@ RCT_EXPORT_METHOD(createPDFbyImages:(NSDictionary *)options
     NSString *documentDirectory = [documentDirectories objectAtIndex:0];
     NSString *documentDirectoryFilename = [documentDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pdf", filename]];
 
-    RCTLog(@"filePath: %@",documentDirectoryFilename);
     if (!pdfData) {
         _rejectBlock(RCTErrorUnspecified, nil, RCTErrorWithMessage(@"PDF couldn't be saved."));
         return;
@@ -128,7 +126,6 @@ RCT_EXPORT_METHOD(createPDFbyImages:(NSDictionary *)options
     //Write pdf file
     [pdfData writeToFile:documentDirectoryFilename atomically:YES];
 
-    RCTLog(@"Wrote %llu bytes", (unsigned long long)[pdfData length]);
     //Add filepath to resultDict. This will be send back to RN
     [self.resultDict setObject:documentDirectoryFilename forKey:@"filePath"];
 
